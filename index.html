@@ -1,0 +1,3078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Happy Birthday, Trijieta! | F1 Personality Telemetry</title>
+  <!-- Google Fonts: Russo One (Racing Display), Rajdhani (F1 Telemetry), Plus Jakarta Sans (Clean Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Rajdhani:wght@600;700&family=Russo+One&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-dark: #09060e;
+      --bg-panel: rgba(20, 12, 30, 0.82);
+      --crimson: #e11d48;
+      --hot-pink: #ff007f;
+      --royal-purple: #9333ea;
+      --deep-violet: #3b0764;
+      --gold: #fbbf24;
+      --white: #f8fafc;
+      --muted: #cbd5e1;
+      --font-display: 'Russo One', sans-serif;
+      --font-telemetry: 'Rajdhani', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--bg-dark);
+      color: var(--white);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Carbon Fibre & Stage Beam Background */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(225, 29, 72, 0.25), transparent 50%),
+        radial-gradient(circle at 80% 0%, rgba(147, 51, 234, 0.28), transparent 50%),
+        radial-gradient(circle at 50% 100%, rgba(255, 0, 127, 0.18), transparent 60%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 2px, transparent 2px, transparent 6px),
+        repeating-linear-gradient(-45deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 2px, transparent 2px, transparent 6px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Animated Stage Light Beams */
+    .stage-beams {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .beam {
+      position: absolute;
+      top: -20%;
+      width: 240px;
+      height: 140vh;
+      background: linear-gradient(to bottom, rgba(255, 0, 127, 0.16), transparent 85%);
+      transform-origin: top center;
+      filter: blur(18px);
+      animation: swayBeam 8s ease-in-out infinite alternate;
+    }
+    .beam.left {
+      left: 10%;
+      background: linear-gradient(to bottom, rgba(225, 29, 72, 0.18), transparent 85%);
+      transform: rotate(-22deg);
+    }
+    .beam.right {
+      right: 10%;
+      background: linear-gradient(to bottom, rgba(147, 51, 234, 0.2), transparent 85%);
+      transform: rotate(22deg);
+      animation-delay: -4s;
+    }
+
+    @keyframes swayBeam {
+      0% { transform: rotate(-25deg) scaleX(1); }
+      100% { transform: rotate(25deg) scaleX(1.3); }
+    }
+
+    /* Top Festive Bunting / Checkered Garland */
+    .bunting-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 46px;
+      z-index: 10;
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .bunting-svg {
+      width: 100%;
+      min-width: 600px;
+      max-width: 1400px;
+      height: 46px;
+      filter: drop-shadow(0 4px 10px rgba(255, 0, 127, 0.35));
+    }
+
+    /* Floating SVG Balloons Background */
+    .ambient-balloons {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      overflow: hidden;
+    }
+    .floating-balloon {
+      position: absolute;
+      bottom: -120px;
+      opacity: 0.45;
+      filter: drop-shadow(0 0 12px rgba(255, 0, 127, 0.4));
+      animation: floatUp 16s linear infinite;
+    }
+    .floating-balloon.b1 { left: 6%; animation-duration: 18s; animation-delay: 0s; width: 48px; }
+    .floating-balloon.b2 { left: 22%; animation-duration: 22s; animation-delay: -6s; width: 38px; }
+    .floating-balloon.b3 { right: 18%; animation-duration: 19s; animation-delay: -11s; width: 44px; }
+    .floating-balloon.b4 { right: 5%; animation-duration: 15s; animation-delay: -3s; width: 52px; }
+
+    @keyframes floatUp {
+      0% { transform: translateY(15vh) rotate(-6deg); opacity: 0; }
+      15% { opacity: 0.45; }
+      85% { opacity: 0.45; }
+      100% { transform: translateY(-115vh) rotate(8deg); opacity: 0; }
+    }
+
+    /* Confetti & Party Popper Canvas */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    /* Floating Audio Control */
+    .audio-toggle {
+      position: fixed;
+      top: 52px;
+      right: 16px;
+      z-index: 60;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 2px solid var(--hot-pink);
+      background: rgba(15, 8, 24, 0.88);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255, 0, 127, 0.45);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .audio-toggle:hover, .audio-toggle:focus-visible {
+      transform: scale(1.08);
+      box-shadow: 0 0 22px rgba(225, 29, 72, 0.8);
+      border-color: var(--gold);
+      outline: none;
+    }
+    .audio-toggle svg {
+      width: 22px;
+      height: 22px;
+    }
+    .audio-toggle.hidden {
+      display: none;
+    }
+
+    /* Main App Container */
+    .app-wrapper {
+      position: relative;
+      z-index: 15;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 64px 16px 36px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* Screen Transitions */
+    .screen {
+      width: 100%;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      animation: flagWipeIn 0.48s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .screen.active {
+      display: flex;
+    }
+
+    @keyframes flagWipeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(22px) scale(0.97);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Card Shell */
+    .race-card {
+      width: 100%;
+      background: var(--bg-panel);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 0, 127, 0.35);
+      border-radius: 20px;
+      padding: 28px 22px;
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.75),
+        0 0 30px rgba(147, 51, 234, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Racing Top Stripe on Cards */
+    .race-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--crimson), var(--hot-pink), var(--royal-purple), var(--gold));
+    }
+
+    /* Checkered Accent Bar */
+    .checkered-strip {
+      height: 10px;
+      width: 100%;
+      margin: 14px 0;
+      background-image:
+        linear-gradient(45deg, rgba(255,255,255,0.18) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(255,255,255,0.18) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.18) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.18) 75%);
+      background-size: 12px 12px;
+      background-position: 0 0, 0 6px, 6px -6px, -6px 0;
+      border-radius: 4px;
+    }
+
+    /* Typography */
+    .telemetry-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-telemetry);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(225, 29, 72, 0.18);
+      border: 1px solid rgba(251, 191, 36, 0.4);
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 7vw, 3.1rem);
+      line-height: 1.12;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, #ffffff 10%, #ff85c0 50%, #e11d48 90%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 18px rgba(255, 0, 127, 0.45));
+    }
+
+    .hero-name-glow {
+      display: block;
+      font-size: clamp(2.3rem, 8.5vw, 3.7rem);
+      background: linear-gradient(90deg, var(--gold), var(--hot-pink), var(--royal-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 22px rgba(225, 29, 72, 0.7));
+      margin-top: 4px;
+    }
+
+    .subtitle {
+      font-size: clamp(1rem, 3.8vw, 1.18rem);
+      line-height: 1.55;
+      color: var(--muted);
+      margin-bottom: 24px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .subtitle strong {
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    /* Primary CTA Button */
+    .btn-race {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--crimson), var(--hot-pink), var(--royal-purple));
+      border: 2px solid rgba(255, 255, 255, 0.25);
+      border-radius: 14px;
+      padding: 16px 28px;
+      cursor: pointer;
+      box-shadow:
+        0 10px 25px rgba(225, 29, 72, 0.45),
+        0 0 20px rgba(255, 0, 127, 0.4);
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+      overflow: hidden;
+      width: 100%;
+      max-width: 340px;
+    }
+    .btn-race:hover, .btn-race:focus-visible {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow:
+        0 14px 30px rgba(225, 29, 72, 0.65),
+        0 0 28px rgba(251, 191, 36, 0.55);
+      border-color: var(--gold);
+      outline: none;
+    }
+    .btn-race:active {
+      transform: scale(0.97);
+    }
+    .btn-race svg {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+
+    /* F1 Starting Gantry 5-Lights Progress Indicator */
+    .gantry-container {
+      width: 100%;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .gantry-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-telemetry);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .gantry-lights {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #07040a;
+      border: 2px solid rgba(255, 255, 255, 0.14);
+      border-radius: 14px;
+      padding: 10px 18px;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.9);
+      width: 100%;
+      max-width: 360px;
+    }
+    .light-pod {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: #140d1e;
+      padding: 6px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .light-bulb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #2a1829;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    .light-pod.lit .light-bulb {
+      background: var(--crimson);
+      box-shadow: 0 0 12px var(--crimson), 0 0 22px var(--hot-pink);
+    }
+    .light-pod.final-lap .light-bulb {
+      background: var(--gold);
+      box-shadow: 0 0 14px var(--gold), 0 0 26px var(--hot-pink);
+    }
+
+    /* Quiz Question Styling */
+    .question-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 5vw, 1.75rem);
+      line-height: 1.25;
+      margin: 10px 0 22px;
+      color: var(--white);
+      text-shadow: 0 0 12px rgba(147, 51, 234, 0.5);
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      width: 100%;
+    }
+    @media (min-width: 520px) {
+      .options-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+    }
+
+    .option-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      min-height: 68px;
+      padding: 14px 16px;
+      background: rgba(34, 17, 51, 0.72);
+      border: 1.5px solid rgba(255, 0, 127, 0.3);
+      border-radius: 14px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.98rem;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      overflow: hidden;
+      transition:
+        transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.25s ease;
+    }
+    .option-btn:hover, .option-btn:focus-visible {
+      transform: translateY(-3px);
+      border-color: var(--hot-pink);
+      background: rgba(59, 7, 100, 0.85);
+      box-shadow: 0 8px 20px rgba(225, 29, 72, 0.3), 0 0 15px rgba(255, 0, 127, 0.35);
+      outline: none;
+    }
+    .option-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(225, 29, 72, 0.25), rgba(147, 51, 234, 0.35));
+      border: 1px solid rgba(255, 0, 127, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--gold);
+    }
+    .option-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+    .option-text {
+      flex: 1;
+      line-height: 1.3;
+      text-transform: capitalize;
+    }
+
+    /* Chosen & Unchosen Option States */
+    .option-btn.selected {
+      animation: optionPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      background: linear-gradient(135deg, var(--crimson), var(--royal-purple));
+      border-color: var(--gold);
+      box-shadow: 0 0 25px rgba(255, 0, 127, 0.8), 0 0 40px rgba(251, 191, 36, 0.4);
+      z-index: 2;
+    }
+    .option-btn.dimmed {
+      opacity: 0.28;
+      transform: scale(0.95);
+      pointer-events: none;
+    }
+
+    @keyframes optionPop {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.06); }
+      100% { transform: scale(1.02); }
+    }
+
+    /* Ripple Effect inside Button */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      animation: rippleAnim 0.55s ease-out;
+      background: rgba(255, 255, 255, 0.45);
+      pointer-events: none;
+    }
+    @keyframes rippleAnim {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+
+    /* F1 Pit-Wall Team Radio Tease Modal / Card */
+    .team-radio-box {
+      margin-top: 18px;
+      width: 100%;
+      background: linear-gradient(135deg, rgba(16, 9, 28, 0.96), rgba(45, 10, 62, 0.96));
+      border: 2px solid var(--hot-pink);
+      border-radius: 16px;
+      padding: 16px 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 24px rgba(255, 0, 127, 0.4);
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+      animation: radioSlideIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .team-radio-box.visible {
+      display: flex;
+    }
+    @keyframes radioSlideIn {
+      0% { opacity: 0; transform: translateY(14px) scale(0.96); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .radio-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 0, 127, 0.25);
+      padding-bottom: 8px;
+    }
+    .radio-caller {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-telemetry);
+      font-weight: 700;
+      font-size: 0.92rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .radio-wave {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 16px;
+    }
+    .wave-bar {
+      width: 3px;
+      background: var(--hot-pink);
+      border-radius: 2px;
+      animation: eqBounce 0.6s ease-in-out infinite alternate;
+    }
+    .wave-bar:nth-child(1) { height: 6px; animation-delay: 0s; }
+    .wave-bar:nth-child(2) { height: 14px; animation-delay: 0.15s; }
+    .wave-bar:nth-child(3) { height: 10px; animation-delay: 0.3s; }
+    .wave-bar:nth-child(4) { height: 16px; animation-delay: 0.1s; }
+    .wave-bar:nth-child(5) { height: 8px; animation-delay: 0.25s; }
+
+    @keyframes eqBounce {
+      0% { transform: scaleY(0.4); }
+      100% { transform: scaleY(1.1); }
+    }
+
+    .radio-message {
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.45;
+      font-style: italic;
+    }
+
+    /* Tease Countdown Progress Bar inside Team Radio Card */
+    .tease-progress-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+    .tease-progress-fill {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--crimson), var(--hot-pink), var(--royal-purple));
+      box-shadow: 0 0 10px rgba(255, 0, 127, 0.65);
+      transform-origin: left center;
+    }
+
+    /* Suspense / Telemetry Screen */
+    .tachometer-wrap {
+      position: relative;
+      width: 220px;
+      height: 140px;
+      margin: 12px auto 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tachometer-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+    .rpm-readout {
+      position: absolute;
+      bottom: 6px;
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      text-shadow: 0 0 10px rgba(251, 191, 36, 0.6);
+    }
+    .suspense-status {
+      font-family: var(--font-telemetry);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--hot-pink);
+      min-height: 2rem;
+      margin-bottom: 14px;
+    }
+
+    /* Reveal Screen */
+    .reveal-entrance {
+      animation: revealZoomShake 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    @keyframes revealZoomShake {
+      0% { opacity: 0; transform: scale(0.75); }
+      50% { opacity: 1; transform: scale(1.04) rotate(-1deg); }
+      70% { transform: scale(0.99) rotate(1deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+
+    .driver-card {
+      margin: 16px 0 22px;
+      background: linear-gradient(145deg, rgba(18, 10, 30, 0.95), rgba(48, 10, 60, 0.9));
+      border: 2px solid var(--gold);
+      border-radius: 18px;
+      padding: 22px 18px;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 0 35px rgba(225, 29, 72, 0.45),
+        inset 0 0 25px rgba(147, 51, 234, 0.3);
+    }
+    .driver-number-bg {
+      position: absolute;
+      right: -8px;
+      bottom: -18px;
+      font-family: var(--font-display);
+      font-size: 7.5rem;
+      line-height: 1;
+      color: rgba(255, 0, 127, 0.11);
+      pointer-events: none;
+      user-select: none;
+    }
+    .driver-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .helmet-graphic {
+      width: 92px;
+      height: 92px;
+      filter: drop-shadow(0 0 14px rgba(255, 0, 127, 0.6));
+    }
+    .driver-meta {
+      text-align: left;
+    }
+    .driver-badge {
+      display: inline-block;
+      font-family: var(--font-telemetry);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: rgba(251, 191, 36, 0.18);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .driver-name {
+      font-family: var(--font-display);
+      font-size: clamp(1.55rem, 5.5vw, 2.2rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-shadow: 0 0 16px rgba(225, 29, 72, 0.8);
+    }
+    .driver-team {
+      font-family: var(--font-telemetry);
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #f472b6;
+    }
+
+    .final-messages {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 18px 0 24px;
+      text-align: left;
+    }
+    .msg-pill {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border-left: 4px solid var(--hot-pink);
+      padding: 12px 14px;
+      border-radius: 0 12px 12px 0;
+      font-size: 0.98rem;
+      line-height: 1.45;
+      color: var(--white);
+    }
+    .msg-pill:nth-child(2) {
+      border-left-color: var(--royal-purple);
+    }
+    .msg-pill:nth-child(3) {
+      border-left-color: var(--gold);
+      background: linear-gradient(90deg, rgba(251, 191, 36, 0.14), rgba(255, 0, 127, 0.08));
+      font-weight: 700;
+    }
+    .msg-pill svg {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var(--gold);
+    }
+
+    /* Decorative Hero Icons Row */
+    .icon-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 18px;
+      color: var(--hot-pink);
+    }
+    .icon-row svg {
+      width: 34px;
+      height: 34px;
+      filter: drop-shadow(0 0 10px rgba(255, 0, 127, 0.5));
+    }
+
+    /* ==================== GLITCH SCREEN STYLES ==================== */
+    .glitch-screen-card {
+      background: rgba(8, 5, 14, 0.96);
+      border-color: var(--crimson);
+      box-shadow: 0 0 40px rgba(225, 29, 72, 0.65), inset 0 0 30px rgba(225, 29, 72, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+    .glitch-scanlines {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 55;
+      display: none;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0px,
+          transparent 2px,
+          rgba(0, 0, 0, 0.55) 3px,
+          rgba(225, 29, 72, 0.12) 4px
+        );
+      animation: glitchFlicker 0.14s steps(2, end) infinite;
+    }
+    .glitch-scanlines.active {
+      display: block;
+    }
+    .glitch-active {
+      animation: rgbJitter 0.22s infinite;
+    }
+    @keyframes rgbJitter {
+      0% {
+        transform: translate(0, 0) skewX(0deg);
+        text-shadow: -3px 0 #ff007f, 3px 0 #9333ea;
+      }
+      25% {
+        transform: translate(-4px, 2px) skewX(-2deg);
+        text-shadow: 3px -1px #e11d48, -3px 1px #fbbf24;
+      }
+      50% {
+        transform: translate(3px, -2px) skewX(2deg);
+        text-shadow: -2px 2px #9333ea, 2px -2px #ff007f;
+      }
+      75% {
+        transform: translate(-2px, -1px) skewX(-1deg);
+        text-shadow: 4px 0 #ff007f, -4px 0 #e11d48;
+      }
+      100% {
+        transform: translate(0, 0) skewX(0deg);
+        text-shadow: -3px 0 #ff007f, 3px 0 #9333ea;
+      }
+    }
+    @keyframes glitchFlicker {
+      0% { opacity: 0.85; }
+      50% { opacity: 0.45; }
+      100% { opacity: 0.95; }
+    }
+    .lights-out-flash {
+      position: fixed;
+      inset: 0;
+      background: #ffffff;
+      z-index: 90;
+      pointer-events: none;
+      opacity: 0;
+    }
+    .lights-out-flash.fire {
+      animation: flashBang 0.55s ease-out forwards;
+    }
+    @keyframes flashBang {
+      0% { opacity: 0; }
+      20% { opacity: 0.95; background: #ff007f; }
+      45% { opacity: 1; background: #ffffff; }
+      100% { opacity: 0; background: #09060e; }
+    }
+
+    /* ==================== REAL REVEAL: HER CUSTOM TRADING CARD ==================== */
+    .real-reveal-heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 4.8vw, 1.65rem);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gold);
+      margin-bottom: 10px;
+      text-shadow: 0 0 16px rgba(251, 191, 36, 0.55);
+    }
+
+    /* Compact Screenshot-Worthy Trading Card (fits 360px-430px without scrolling) */
+    .her-trading-card {
+      width: 100%;
+      max-width: 356px;
+      margin: 0 auto 8px;
+      background: linear-gradient(155deg, #1b0a28 0%, #2e0938 50%, #14061f 100%);
+      border: 2px solid var(--hot-pink);
+      border-radius: 18px;
+      padding: 12px 14px 12px;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 14px 36px rgba(0, 0, 0, 0.85),
+        0 0 28px rgba(255, 0, 127, 0.45),
+        0 0 50px rgba(251, 191, 36, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      text-align: left;
+    }
+
+    /* Holographic Single Diagonal Shine */
+    .her-trading-card::after {
+      content: "";
+      position: absolute;
+      top: -60%;
+      left: -130%;
+      width: 75%;
+      height: 220%;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.06) 35%,
+        rgba(251, 191, 36, 0.28) 50%,
+        rgba(255, 0, 127, 0.18) 65%,
+        transparent 100%
+      );
+      transform: rotate(25deg);
+      pointer-events: none;
+      z-index: 6;
+    }
+    .her-trading-card.holo-sweep::after {
+      animation: holoSweepOnce 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    @keyframes holoSweepOnce {
+      0% { left: -130%; }
+      100% { left: 190%; }
+    }
+
+    /* Faint Helmet Watermark Behind Stats */
+    .card-watermark-helmet {
+      position: absolute;
+      right: -12px;
+      bottom: 32px;
+      width: 135px;
+      height: 135px;
+      opacity: 0.07;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Angled-Corner Portrait Window (4:5 Fixed Aspect Ratio) */
+    .portrait-stage {
+      position: relative;
+      width: 74%;
+      max-width: 220px;
+      aspect-ratio: 4 / 5;
+      margin: 0 auto 8px;
+      opacity: 0;
+      transform: translateY(14px) scale(0.94);
+    }
+    .her-trading-card.animate-in .portrait-stage {
+      animation: cardPartIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.05s forwards;
+    }
+    .portrait-frame {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      padding: 2.5px;
+      background: linear-gradient(135deg, var(--crimson), var(--hot-pink), var(--royal-purple), var(--gold));
+      clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+      box-shadow: 0 0 22px rgba(255, 0, 127, 0.45);
+    }
+    .portrait-inner {
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 30%, #3b0764, #09060e);
+      clip-path: polygon(13px 0, 100% 0, 100% calc(100% - 13px), calc(100% - 13px) 100%, 0 100%, 0 13px);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .portrait-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .portrait-img.hidden {
+      display: none;
+    }
+    .portrait-fallback-svg {
+      width: 68%;
+      height: 68%;
+      display: none;
+      filter: drop-shadow(0 0 14px rgba(255, 0, 127, 0.65));
+    }
+    .portrait-fallback-svg.visible {
+      display: block;
+    }
+    /* Dark Bottom Gradient inside Portrait so Overlapping #19 & Text Stay High-Contrast */
+    .portrait-inner::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 45%;
+      background: linear-gradient(to top, rgba(9, 6, 14, 0.92), rgba(9, 6, 14, 0.35), transparent);
+      pointer-events: none;
+    }
+
+    /* Overlapping Car Number 19 on Corner of Photo */
+    .car-num-overlap {
+      position: absolute;
+      right: -10px;
+      bottom: -8px;
+      z-index: 4;
+      font-family: var(--font-display);
+      font-size: 2.75rem;
+      line-height: 0.9;
+      background: linear-gradient(135deg, #ffffff 0%, var(--gold) 45%, var(--hot-pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 12px rgba(225, 29, 72, 0.85));
+      padding: 2px 6px;
+      opacity: 0;
+      transform: scale(0.75);
+    }
+    .her-trading-card.animate-in .car-num-overlap {
+      animation: cardPartIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.35s forwards;
+    }
+
+    /* Name & Team Banner Below Photo */
+    .her-banner {
+      position: relative;
+      z-index: 3;
+      background: linear-gradient(90deg, rgba(225, 29, 72, 0.28), rgba(147, 51, 234, 0.32));
+      border: 1px solid rgba(255, 0, 127, 0.45);
+      border-left: 4px solid var(--gold);
+      border-radius: 10px;
+      padding: 6px 10px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    .her-trading-card.animate-in .her-banner {
+      animation: cardPartIn 0.4s ease-out 0.42s forwards;
+    }
+    .her-banner-name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-shadow: 0 0 12px rgba(255, 0, 127, 0.7);
+    }
+    .her-banner-team {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-telemetry);
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(9, 6, 14, 0.75);
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(251, 191, 36, 0.4);
+    }
+    .her-banner-team svg {
+      width: 15px;
+      height: 15px;
+      color: var(--hot-pink);
+    }
+
+    /* Staggered Stat Lines */
+    .her-stats-list {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+    .her-stat-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: rgba(9, 6, 14, 0.62);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 7px;
+      padding: 4px 9px;
+      font-size: 0.8rem;
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    .her-trading-card.animate-in .her-stat-row:nth-child(1) {
+      animation: cardPartIn 0.32s ease-out 0.62s forwards;
+    }
+    .her-trading-card.animate-in .her-stat-row:nth-child(2) {
+      animation: cardPartIn 0.32s ease-out 0.76s forwards;
+    }
+    .her-trading-card.animate-in .her-stat-row:nth-child(3) {
+      animation: cardPartIn 0.32s ease-out 0.90s forwards;
+    }
+    .her-trading-card.animate-in .her-stat-row:nth-child(4) {
+      animation: cardPartIn 0.32s ease-out 1.04s forwards;
+    }
+    .stat-label {
+      font-family: var(--font-telemetry);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #f472b6;
+    }
+    .stat-val {
+      font-weight: 700;
+      color: var(--white);
+      text-align: right;
+    }
+
+    /* Super Licence Badge & Approved Footer Inside Card */
+    .her-card-footer {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      align-items: center;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    .her-trading-card.animate-in .her-card-footer {
+      animation: cardPartIn 0.38s ease-out 1.2s forwards;
+    }
+    .super-licence-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(90deg, rgba(225, 29, 72, 0.3), rgba(251, 191, 36, 0.25), rgba(147, 51, 234, 0.3));
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      padding: 3px 12px;
+      font-family: var(--font-telemetry);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      box-shadow: 0 0 12px rgba(251, 191, 36, 0.3);
+    }
+    .super-licence-badge svg {
+      width: 14px;
+      height: 14px;
+    }
+    .fav-driver-subline {
+      font-size: 0.74rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    @keyframes cardPartIn {
+      to {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+      }
+    }
+
+    .screenshot-prompt {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-telemetry);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 4px 0 12px;
+    }
+    .screenshot-prompt svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .warm-bday-message {
+      font-size: 1.02rem;
+      line-height: 1.5;
+      color: var(--white);
+      background: linear-gradient(90deg, rgba(225, 29, 72, 0.2), rgba(251, 191, 36, 0.14), rgba(147, 51, 234, 0.2));
+      border: 1px solid rgba(251, 191, 36, 0.45);
+      border-radius: 14px;
+      padding: 12px 16px;
+      margin-bottom: 18px;
+      font-weight: 600;
+      box-shadow: 0 0 22px rgba(255, 0, 127, 0.2);
+    }
+
+    /* ==================== TEAM RADIO VOICE MESSAGE TRANSMITTER ==================== */
+    .voice-transmitter-card {
+      width: 100%;
+      background: linear-gradient(145deg, rgba(22, 11, 36, 0.95), rgba(48, 12, 62, 0.92));
+      border: 1.5px solid var(--hot-pink);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 18px;
+      box-shadow: 0 0 26px rgba(255, 0, 127, 0.35);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-transmitter {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-family: var(--font-display);
+      font-size: 0.96rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--crimson), var(--hot-pink), var(--royal-purple));
+      border: 2px solid var(--gold);
+      border-radius: 14px;
+      padding: 14px 18px;
+      cursor: pointer;
+      box-shadow: 0 0 24px rgba(255, 0, 127, 0.55);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-transmitter:hover, .btn-transmitter:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 0 32px rgba(251, 191, 36, 0.75);
+      outline: none;
+    }
+    .btn-transmitter svg {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+    .voice-player-controls {
+      width: 100%;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .voice-player-controls.active {
+      display: flex;
+    }
+    .voice-wave-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .btn-voice-pause {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: rgba(255, 0, 127, 0.22);
+      border: 1px solid var(--hot-pink);
+      color: var(--white);
+      font-family: var(--font-telemetry);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .btn-voice-pause svg {
+      width: 16px;
+      height: 16px;
+    }
+    .live-signal-bars {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      height: 22px;
+      flex: 1;
+      justify-content: center;
+    }
+    .sig-bar {
+      width: 4px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 2px;
+      transition: height 0.2s ease;
+    }
+    .live-signal-bars.playing .sig-bar {
+      animation: eqBounce 0.5s ease-in-out infinite alternate;
+      background: var(--hot-pink);
+    }
+    .live-signal-bars.playing .sig-bar:nth-child(odd) {
+      background: var(--gold);
+    }
+    .live-signal-bars .sig-bar:nth-child(1) { animation-delay: 0.05s; height: 10px; }
+    .live-signal-bars .sig-bar:nth-child(2) { animation-delay: 0.20s; height: 18px; }
+    .live-signal-bars .sig-bar:nth-child(3) { animation-delay: 0.35s; height: 12px; }
+    .live-signal-bars .sig-bar:nth-child(4) { animation-delay: 0.10s; height: 22px; }
+    .live-signal-bars .sig-bar:nth-child(5) { animation-delay: 0.25s; height: 14px; }
+    .live-signal-bars .sig-bar:nth-child(6) { animation-delay: 0.40s; height: 20px; }
+    .live-signal-bars .sig-bar:nth-child(7) { animation-delay: 0.15s; height: 11px; }
+    .live-signal-bars .sig-bar:nth-child(8) { animation-delay: 0.30s; height: 16px; }
+
+    .voice-progress-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .voice-progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--crimson), var(--hot-pink), var(--gold));
+      transition: width 0.12s linear;
+    }
+    .voice-fallback-notice {
+      display: none;
+      font-family: var(--font-telemetry);
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 6px 12px;
+      background: rgba(251, 191, 36, 0.12);
+      border: 1px solid rgba(251, 191, 36, 0.4);
+      border-radius: 8px;
+    }
+    .voice-fallback-notice.visible {
+      display: block;
+    }
+    .final-fade-closing {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      font-family: var(--font-display);
+      font-size: clamp(1.35rem, 5vw, 1.85rem);
+      background: linear-gradient(90deg, var(--gold), var(--hot-pink), var(--white));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 16px rgba(255, 0, 127, 0.65));
+      margin: 4px 0 18px;
+      min-height: 2.2rem;
+    }
+    .final-fade-closing.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Reduced Motion Support */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .her-trading-card::after {
+        display: none !important;
+      }
+      .glitch-scanlines {
+        display: none !important;
+      }
+      .portrait-stage,
+      .car-num-overlap,
+      .her-banner,
+      .her-stat-row,
+      .her-card-footer {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!--
+    ======================================================================
+    CUSTOM ROCK / METAL BACKGROUND MUSIC INSTRUCTIONS:
+    Place your chosen MP3 track in the exact same folder as this index.html
+    file (the repository root) and name it "bg-music.mp3".
+    If "bg-music.mp3" is missing or cannot load, the built-in Web Audio API
+    Rock Power-Chord & Drum Synthesizer will automatically play instead!
+    ======================================================================
+  -->
+  <audio id="bg-audio" src="bg-music.mp3" loop preload="auto" playsinline></audio>
+
+  <!--
+    ======================================================================
+    VOICE MESSAGE AUDIO FILE INSTRUCTIONS:
+    Place your recorded voice message in the exact same folder as this
+    index.html file (the repository root) and name it "voice-message.mp3".
+    It will only play when Trijieta taps the "Incoming team radio" button.
+    ======================================================================
+  -->
+  <audio id="voice-audio" src="voice-message.mp3" preload="auto" playsinline></audio>
+
+  <!-- Glitch Scanline Overlay & Lights-Out Transition Flash -->
+  <div id="glitch-scanlines" class="glitch-scanlines" aria-hidden="true"></div>
+  <div id="lights-out-flash" class="lights-out-flash" aria-hidden="true"></div>
+
+  <!-- Stage Concert Light Beams -->
+  <div class="stage-beams" aria-hidden="true">
+    <div class="beam left"></div>
+    <div class="beam right"></div>
+  </div>
+
+  <!-- Top Festive Birthday & Racing Bunting -->
+  <div class="bunting-bar" aria-hidden="true">
+    <svg class="bunting-svg" viewBox="0 0 800 50" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="pennantCrimson" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#e11d48"/>
+          <stop offset="100%" stop-color="#9333ea"/>
+        </linearGradient>
+        <linearGradient id="pennantPink" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#ff007f"/>
+          <stop offset="100%" stop-color="#3b0764"/>
+        </linearGradient>
+        <linearGradient id="pennantGold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#fbbf24"/>
+          <stop offset="100%" stop-color="#e11d48"/>
+        </linearGradient>
+      </defs>
+      <!-- String -->
+      <path d="M0,4 Q400,20 800,4" stroke="rgba(255,255,255,0.35)" stroke-width="2" fill="none"/>
+      <!-- Pennants -->
+      <polygon points="10,5 45,7 27,42" fill="url(#pennantCrimson)"/>
+      <polygon points="55,7 90,9 72,44" fill="url(#pennantPink)"/>
+      <polygon points="100,9 135,10 117,45" fill="url(#pennantGold)"/>
+      <polygon points="145,10 180,11 162,46" fill="url(#pennantCrimson)"/>
+      <polygon points="190,11 225,12 207,47" fill="url(#pennantPink)"/>
+      <polygon points="235,12 270,13 252,48" fill="url(#pennantGold)"/>
+      <polygon points="280,13 315,13 297,48" fill="url(#pennantCrimson)"/>
+      <polygon points="325,13 360,14 342,48" fill="url(#pennantPink)"/>
+      <polygon points="370,14 405,14 387,49" fill="url(#pennantGold)"/>
+      <polygon points="415,14 450,14 432,48" fill="url(#pennantCrimson)"/>
+      <polygon points="460,14 495,13 477,48" fill="url(#pennantPink)"/>
+      <polygon points="505,13 540,13 522,48" fill="url(#pennantGold)"/>
+      <polygon points="550,12 585,12 567,47" fill="url(#pennantCrimson)"/>
+      <polygon points="595,11 630,10 612,46" fill="url(#pennantPink)"/>
+      <polygon points="640,10 675,9 657,45" fill="url(#pennantGold)"/>
+      <polygon points="685,9 720,7 702,44" fill="url(#pennantCrimson)"/>
+      <polygon points="730,7 765,5 747,42" fill="url(#pennantPink)"/>
+      <polygon points="770,5 798,4 784,38" fill="url(#pennantGold)"/>
+    </svg>
+  </div>
+
+  <!-- Ambient Floating SVG Balloons -->
+  <div class="ambient-balloons" aria-hidden="true">
+    <svg class="floating-balloon b1" viewBox="0 0 60 90">
+      <ellipse cx="30" cy="34" rx="24" ry="30" fill="#e11d48"/>
+      <ellipse cx="22" cy="22" rx="5" ry="9" fill="rgba(255,255,255,0.35)"/>
+      <polygon points="26,64 34,64 32,68 28,68" fill="#e11d48"/>
+      <path d="M30,68 Q35,78 27,88" stroke="#cbd5e1" stroke-width="1.5" fill="none"/>
+    </svg>
+    <svg class="floating-balloon b2" viewBox="0 0 60 90">
+      <ellipse cx="30" cy="34" rx="24" ry="30" fill="#9333ea"/>
+      <ellipse cx="22" cy="22" rx="5" ry="9" fill="rgba(255,255,255,0.35)"/>
+      <polygon points="26,64 34,64 32,68 28,68" fill="#9333ea"/>
+      <path d="M30,68 Q24,78 32,88" stroke="#cbd5e1" stroke-width="1.5" fill="none"/>
+    </svg>
+    <svg class="floating-balloon b3" viewBox="0 0 60 90">
+      <ellipse cx="30" cy="34" rx="24" ry="30" fill="#ff007f"/>
+      <ellipse cx="22" cy="22" rx="5" ry="9" fill="rgba(255,255,255,0.35)"/>
+      <polygon points="26,64 34,64 32,68 28,68" fill="#ff007f"/>
+      <path d="M30,68 Q35,78 27,88" stroke="#cbd5e1" stroke-width="1.5" fill="none"/>
+    </svg>
+    <svg class="floating-balloon b4" viewBox="0 0 60 90">
+      <ellipse cx="30" cy="34" rx="24" ry="30" fill="#fbbf24"/>
+      <ellipse cx="22" cy="22" rx="5" ry="9" fill="rgba(255,255,255,0.45)"/>
+      <polygon points="26,64 34,64 32,68 28,68" fill="#fbbf24"/>
+      <path d="M30,68 Q25,78 33,88" stroke="#cbd5e1" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
+
+  <!-- Particle Canvas for Party Poppers & Button Sparks -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Floating Mute / Unmute Toggle -->
+  <button id="audio-toggle" class="audio-toggle hidden" aria-label="Mute background music" title="Toggle Music">
+    <svg id="icon-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+    </svg>
+    <svg id="icon-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <line x1="23" y1="9" x2="17" y2="15"></line>
+      <line x1="17" y1="9" x2="23" y2="15"></line>
+    </svg>
+  </button>
+
+  <main class="app-wrapper">
+
+    <!-- ==================== 1. START SCREEN ==================== -->
+    <section id="screen-intro" class="screen active" aria-labelledby="intro-heading">
+      <div class="race-card">
+        <div class="telemetry-tag">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>VIP Paddock Pass // Birthday Edition</span>
+        </div>
+
+        <div class="icon-row" aria-hidden="true">
+          <!-- Checkered Flag SVG -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+            <line x1="4" y1="22" x2="4" y2="15"/>
+          </svg>
+          <!-- Electric Guitar / Rock Star SVG -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11.5 12.5 19 5"/>
+            <path d="m17 3 4 4"/>
+            <path d="M14.5 11.5a4.5 4.5 0 1 1-6.36 6.36 4.5 4.5 0 0 1 6.36-6.36Z"/>
+            <circle cx="10.5" cy="15.5" r="1"/>
+          </svg>
+          <!-- Party Popper SVG -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="3 21 12 16 8 12 3 21"/>
+            <path d="M13 11c2-3 5-3 7-1"/>
+            <path d="M11 8c0-3 2-5 5-5"/>
+            <circle cx="18" cy="5" r="1" fill="currentColor"/>
+            <circle cx="20" cy="14" r="1" fill="currentColor"/>
+          </svg>
+        </div>
+
+        <h1 id="intro-heading" class="hero-title">
+          Lights Out &amp; Away We Go
+        </h1>
+        <p class="subtitle">
+          A custom race-day celebration and rock-fuelled telemetry check awaits <strong><span class="js-friend-name">Trijieta</span></strong>. Turn your sound up.
+        </p>
+
+        <button id="btn-unlock" class="btn-race" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/>
+          </svg>
+          <span>Tap to start the celebration</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== 2. BIRTHDAY OPENING ==================== -->
+    <section id="screen-opening" class="screen" aria-labelledby="opening-heading">
+      <div class="race-card">
+        <div class="telemetry-tag">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span>Lap 19 // Pole Position</span>
+        </div>
+
+        <h1 id="opening-heading" class="hero-title">
+          Happy Birthday,
+          <span class="hero-name-glow js-friend-name">Trijieta</span>
+        </h1>
+
+        <div class="checkered-strip" aria-hidden="true"></div>
+
+        <p class="subtitle">
+          Let's find out if you have the same F1 driver of interest as <strong><span class="js-my-name">Aman</span></strong>.
+        </p>
+
+        <button id="btn-start-race" class="btn-race" type="button">
+          <!-- Steering Wheel SVG -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <circle cx="12" cy="12" r="9"/>
+            <circle cx="12" cy="12" r="2.5"/>
+            <line x1="12" y1="14.5" x2="12" y2="21"/>
+            <line x1="3.5" y1="10" x2="9.8" y2="11.2"/>
+            <line x1="20.5" y1="10" x2="14.2" y2="11.2"/>
+          </svg>
+          <span>Start the race</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== 3. THE QUIZ ==================== -->
+    <section id="screen-quiz" class="screen" aria-labelledby="question-heading">
+      <!-- 5 Red Racing Lights Progress Gantry -->
+      <div class="gantry-container">
+        <div class="gantry-header">
+          <span id="sector-label">Sector 1 of 6</span>
+          <span>Live Telemetry</span>
+        </div>
+        <div class="gantry-lights" id="gantry-lights" role="progressbar" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1">
+          <div class="light-pod"><div class="light-bulb"></div><div class="light-bulb"></div></div>
+          <div class="light-pod"><div class="light-bulb"></div><div class="light-bulb"></div></div>
+          <div class="light-pod"><div class="light-bulb"></div><div class="light-bulb"></div></div>
+          <div class="light-pod"><div class="light-bulb"></div><div class="light-bulb"></div></div>
+          <div class="light-pod"><div class="light-bulb"></div><div class="light-bulb"></div></div>
+        </div>
+      </div>
+
+      <div class="race-card">
+        <h2 id="question-heading" class="question-title">Question loading...</h2>
+        <div id="options-container" class="options-grid"></div>
+
+        <!-- F1 Pit Wall Team Radio Tease Card -->
+        <div id="team-radio" class="team-radio-box" role="status" aria-live="polite">
+          <div class="radio-header">
+            <div class="radio-caller">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+                <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+              </svg>
+              <span>Pit Wall Radio // <span class="js-my-name">Aman</span></span>
+            </div>
+            <div class="radio-wave" aria-hidden="true">
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+            </div>
+          </div>
+          <p id="radio-text" class="radio-message"></p>
+          <div class="tease-progress-track" aria-hidden="true">
+            <div id="tease-progress-fill" class="tease-progress-fill"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 5. THE SUSPENSE ==================== -->
+    <section id="screen-suspense" class="screen" aria-labelledby="suspense-heading">
+      <div class="race-card">
+        <div class="telemetry-tag">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>Pit Wall Supercomputer</span>
+        </div>
+
+        <!-- Animated Rev Counter / Tachometer SVG -->
+        <div class="tachometer-wrap">
+          <svg class="tachometer-svg" viewBox="0 0 200 125">
+            <defs>
+              <linearGradient id="revGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#9333ea"/>
+                <stop offset="55%" stop-color="#ff007f"/>
+                <stop offset="100%" stop-color="#e11d48"/>
+              </linearGradient>
+            </defs>
+            <!-- Background Track -->
+            <path d="M 20 105 A 80 80 0 0 1 180 105" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="14" stroke-linecap="round"/>
+            <!-- Active Rev Arc -->
+            <path id="rev-arc" d="M 20 105 A 80 80 0 0 1 180 105" fill="none" stroke="url(#revGrad)" stroke-width="14" stroke-linecap="round" stroke-dasharray="252" stroke-dashoffset="252"/>
+            <!-- Needle -->
+            <g id="rev-needle" transform="rotate(-90 100 105)">
+              <polygon points="97,105 103,105 100,32" fill="#fbbf24"/>
+              <circle cx="100" cy="105" r="8" fill="#e11d48" stroke="#fbbf24" stroke-width="2"/>
+            </g>
+          </svg>
+          <div id="rpm-value" class="rpm-readout">0 RPM</div>
+        </div>
+
+        <h2 id="suspense-heading" class="suspense-status">Analysing your personality...</h2>
+
+        <!-- 5 Lights Out Trigger Row -->
+        <div class="gantry-lights" id="suspense-gantry" style="margin: 0 auto;">
+          <div class="light-pod"><div class="light-bulb"></div><div class="light-bulb"></div></div>
+          <div class="light-pod"><div class="light-bulb"></div><div class="light-bulb"></div></div>
+          <div class="light-pod"><div class="light-bulb"></div><div class="light-bulb"></div></div>
+          <div class="light-pod"><div class="light-bulb"></div><div class="light-bulb"></div></div>
+          <div class="light-pod"><div class="light-bulb"></div><div class="light-bulb"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 6. THE REVEAL ==================== -->
+    <section id="screen-reveal" class="screen" aria-labelledby="reveal-heading">
+      <div class="race-card reveal-entrance">
+        <div class="telemetry-tag">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span>100% Telemetry Match</span>
+        </div>
+
+        <h2 id="reveal-heading" class="hero-title" style="font-size: clamp(1.4rem, 5.5vw, 2.2rem); margin-bottom: 8px;">
+          Your driver is: <span id="reveal-driver-headline" class="hero-name-glow" style="font-size: clamp(1.9rem, 7vw, 2.9rem);">KIMI ANTONELLI</span>
+        </h2>
+
+        <!-- Stylized SVG Driver Card -->
+        <div class="driver-card">
+          <div class="driver-number-bg" aria-hidden="true">12</div>
+          <div class="driver-top-row">
+            <!-- Custom Stylized Racing Helmet SVG -->
+            <svg class="helmet-graphic" viewBox="0 0 100 100" aria-hidden="true">
+              <defs>
+                <linearGradient id="helmetShell" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#e11d48"/>
+                  <stop offset="55%" stop-color="#9333ea"/>
+                  <stop offset="100%" stop-color="#1e0936"/>
+                </linearGradient>
+                <linearGradient id="visorGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#fbbf24"/>
+                  <stop offset="100%" stop-color="#ff007f"/>
+                </linearGradient>
+              </defs>
+              <!-- Helmet Dome -->
+              <path d="M15,62 C12,30 35,14 60,16 C82,18 90,38 88,60 L84,78 C82,83 74,86 64,86 L26,86 C18,86 15,78 15,62 Z" fill="url(#helmetShell)" stroke="#fbbf24" stroke-width="2.5"/>
+              <!-- Racing Stripe -->
+              <path d="M32,19 C48,18 64,26 72,40 L52,40 C44,29 36,23 26,22 Z" fill="#ff007f" opacity="0.85"/>
+              <!-- Visor -->
+              <path d="M48,42 L88,45 C89,54 88,61 85,66 L46,62 C41,58 41,46 48,42 Z" fill="url(#visorGlow)" stroke="#ffffff" stroke-width="1.5"/>
+              <!-- Number 12 on Helmet -->
+              <text x="24" y="76" fill="#ffffff" font-family="Russo One, sans-serif" font-size="16">12</text>
+            </svg>
+
+            <div class="driver-meta">
+              <span class="driver-badge">Car #12</span>
+              <div class="driver-name" id="card-driver-name">Kimi Antonelli</div>
+              <div class="driver-team">Mercedes</div>
+            </div>
+          </div>
+          <div class="checkered-strip" aria-hidden="true" style="margin-bottom:0;"></div>
+        </div>
+
+        <!-- Final 3 Ordered Messages -->
+        <div class="final-messages">
+          <div class="msg-pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+              <path d="M4 22h16"/>
+              <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+              <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+            </svg>
+            <p id="final-msg-1"></p>
+          </div>
+          <div class="msg-pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+            <p id="final-msg-2"></p>
+          </div>
+          <div class="msg-pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+            <p id="final-msg-3"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 7. GLITCH INTERRUPTION SCREEN ==================== -->
+    <section id="screen-glitch" class="screen" aria-labelledby="glitch-heading">
+      <div id="glitch-card" class="race-card glitch-screen-card">
+        <div class="telemetry-tag" style="border-color: var(--crimson); color: var(--hot-pink);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          <span>Signal Override // Telemetry Anomaly</span>
+        </div>
+
+        <h2 id="glitch-heading" class="hero-title" style="font-size: clamp(1.5rem, 6vw, 2.3rem);">
+          Telemetry Anomaly Detected
+        </h2>
+
+        <div class="team-radio-box visible" style="margin-top: 14px; border-color: var(--crimson);">
+          <div class="radio-header">
+            <div class="radio-caller">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+                <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+              </svg>
+              <span>Pit Wall Override // <span class="js-my-name">Aman</span></span>
+            </div>
+            <div class="radio-wave" aria-hidden="true">
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+            </div>
+          </div>
+          <p id="glitch-line-1" class="radio-message"></p>
+          <p id="glitch-line-2" class="radio-message" style="color: var(--gold); display: none; margin-top: 4px;"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 8. THE REAL REVEAL (HER CUSTOM CARD & VOICE RADIO) ==================== -->
+    <section id="screen-real-reveal" class="screen" aria-labelledby="real-reveal-heading">
+      <div class="race-card" style="padding: 18px 14px 22px;">
+        <h2 id="real-reveal-heading" class="real-reveal-heading">The real result is in.</h2>
+
+        <!-- Screenshot-Worthy Driver Trading Card -->
+        <div id="her-trading-card" class="her-trading-card">
+          <!-- Faint F1 Helmet Watermark Behind Stats -->
+          <svg class="card-watermark-helmet" viewBox="0 0 100 100" aria-hidden="true">
+            <path d="M15,62 C12,30 35,14 60,16 C82,18 90,38 88,60 L84,78 C82,83 74,86 64,86 L26,86 C18,86 15,78 15,62 Z" fill="currentColor"/>
+          </svg>
+
+          <!-- Portrait Frame + Overlapping #19 -->
+          <div class="portrait-stage">
+            <div class="portrait-frame">
+              <div class="portrait-inner">
+                <img id="her-photo-img" class="portrait-img" alt="Photo of Trijieta" />
+                <!-- Stylized Helmet Silhouette Fallback if trijieta.jpg fails to load -->
+                <svg id="her-photo-fallback" class="portrait-fallback-svg" viewBox="0 0 100 100" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="fallbackHelmetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#e11d48"/>
+                      <stop offset="55%" stop-color="#9333ea"/>
+                      <stop offset="100%" stop-color="#3b0764"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M15,62 C12,30 35,14 60,16 C82,18 90,38 88,60 L84,78 C82,83 74,86 64,86 L26,86 C18,86 15,78 15,62 Z" fill="url(#fallbackHelmetGrad)" stroke="#fbbf24" stroke-width="2.5"/>
+                  <path d="M48,42 L88,45 C89,54 88,61 85,66 L46,62 C41,58 41,46 48,42 Z" fill="#fbbf24" stroke="#ffffff" stroke-width="1.5"/>
+                </svg>
+              </div>
+            </div>
+            <div id="her-car-number" class="car-num-overlap">19</div>
+          </div>
+
+          <!-- Driver Name & Team Banner -->
+          <div class="her-banner">
+            <div class="her-banner-name js-friend-name">Trijieta</div>
+            <div class="her-banner-team">
+              <!-- Small Decorative Helmet Silhouette -->
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M4 15C3 8 8 4 14 4c5 0 7 4 7 9l-1 5c-.5 1-2 2-4 2H6c-1.5 0-2-2-2-5z"/>
+              </svg>
+              <span id="her-team-name">CHUYIAA</span>
+            </div>
+          </div>
+
+          <!-- Driver Telemetry Stats -->
+          <div id="her-stats-list" class="her-stats-list"></div>
+
+          <!-- Super Licence Badge & Approved Line -->
+          <div class="her-card-footer">
+            <div class="super-licence-badge">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+              <span id="her-licence-badge">FIA Super Licence // Edition 19</span>
+            </div>
+            <div id="her-fav-driver-line" class="fav-driver-subline"></div>
+          </div>
+        </div>
+
+        <!-- Note Under the Card -->
+        <div class="screenshot-prompt">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+          <span id="screenshot-note-text">Screenshot this card.</span>
+        </div>
+
+        <!-- Warm Personal Birthday Message -->
+        <p id="real-reveal-bday-msg" class="warm-bday-message"></p>
+
+        <!-- Voice Message Transmitter Section -->
+        <div class="voice-transmitter-card">
+          <button id="btn-play-voice" class="btn-transmitter" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+              <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+            </svg>
+            <span id="voice-btn-label">Incoming team radio from Aman</span>
+          </button>
+
+          <div id="voice-controls" class="voice-player-controls">
+            <div class="voice-wave-row">
+              <button id="btn-pause-voice" class="btn-voice-pause" type="button">
+                <svg id="icon-voice-pause" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>
+                </svg>
+                <svg id="icon-voice-resume" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                  <polygon points="5 3 19 12 5 21 5 3"/>
+                </svg>
+                <span id="voice-pause-label">Pause</span>
+              </button>
+
+              <div id="voice-signal-bars" class="live-signal-bars" aria-hidden="true">
+                <span class="sig-bar"></span>
+                <span class="sig-bar"></span>
+                <span class="sig-bar"></span>
+                <span class="sig-bar"></span>
+                <span class="sig-bar"></span>
+                <span class="sig-bar"></span>
+                <span class="sig-bar"></span>
+                <span class="sig-bar"></span>
+              </div>
+            </div>
+
+            <div class="voice-progress-track" aria-hidden="true">
+              <div id="voice-progress-fill" class="voice-progress-fill"></div>
+            </div>
+          </div>
+
+          <div id="voice-fallback-msg" class="voice-fallback-notice" role="status">
+            Voice message coming soon
+          </div>
+        </div>
+
+        <!-- Final Line that Fades in After Voice Message Ends -->
+        <div id="final-closing-line" class="final-fade-closing" aria-live="polite"></div>
+
+        <!-- Replay Button at the Very End -->
+        <button id="btn-replay" class="btn-race" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <polyline points="1 4 1 10 7 10"/>
+            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+          </svg>
+          <span>Replay</span>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    /* =====================================================================
+       1. VARIABLES & QUIZ DATA STRUCTURE (Edit text, stats & paths here!)
+       ===================================================================== */
+    const FRIEND_NAME = "Trijieta";
+    const MY_NAME = "Aman";
+    const FAVORITE_DRIVER = "Kimi Antonelli"; // Mercedes, car number 12
+    const HER_AGE = 19;
+
+    // How long each "team radio" tease stays on screen in milliseconds.
+    // You can change this value anytime (5000 to 7000 is the recommended range).
+    const TEASE_DURATION_MS = 7000;
+
+    // Photo path: Place "trijieta.jpg" in the same folder as index.html (repo root).
+    // Recommended: a square or portrait photo around 800px wide/tall.
+    const PHOTO_SRC = "trijieta.jpg";
+
+    // Audio file paths in the same folder as index.html (repo root)
+    const BG_MUSIC_SRC = "bg-music.mp3";
+    const VOICE_MESSAGE_SRC = "voice-message.mp3";
+
+    // Editable Data Object for Trijieta's Real Reveal Racing Trading Card
+    const REAL_REVEAL_DATA = {
+      heading: "The real result is in.",
+      driverName: FRIEND_NAME,
+      carNumber: HER_AGE,
+      teamName: "CHUYIAA",
+      stats: [
+        { label: "Height", value: "5'7\" (still catching up)" },
+        { label: "Knowledge upgrades", value: `installed by ${MY_NAME}` },
+        { label: "Brain cell sync", value: "100%" },
+        { label: "Signature move", value: "[DHAMKI DENA]" }
+      ],
+      superLicenceText: `Super Licence // Edition ${HER_AGE}`,
+      favDriverLine: `Favourite driver: ${FAVORITE_DRIVER} (approved by ${MY_NAME})`,
+      screenshotNote: "Screenshot this card.",
+      birthdayMessage: `Congratulations on turning ${HER_AGE}, ${FRIEND_NAME}. Here is to an amazing year ahead.`,
+      glitchLine1: "Wait... the telemetry shows something else.",
+      glitchLine2: "Incoming data. Stand by.",
+      voiceButtonLabel: `Incoming team radio from ${MY_NAME}`,
+      voiceComingSoonText: "Voice message coming soon",
+      finalClosingLine: `Happy Birthday, ${FRIEND_NAME}.`
+    };
+
+    // Inline SVG Icons for option buttons (No emojis anywhere!)
+    const ICONS = {
+      flame: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>',
+      crown: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="2 4 5 16 19 16 22 4 17 9 12 3 7 9 2 4"/><line x1="5" y1="20" x2="19" y2="20"/></svg>',
+      bolt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+      moon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>',
+      star: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+      music: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>',
+      wheel: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="14" x2="12" y2="21"/><line x1="3.5" y1="10" x2="10" y2="11.5"/><line x1="20.5" y1="10" x2="14" y2="11.5"/></svg>',
+      shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>'
+    };
+
+    const QUIZ_QUESTIONS = [
+      {
+        question: "Which colour do you like the most?",
+        options: [
+          {
+            label: "crimson red",
+            icon: ICONS.flame,
+            tease: "Great choice. Your brain cells are clearly syncing with mine. Told you the evening walks work."
+          },
+          {
+            label: "royal purple",
+            icon: ICONS.crown,
+            tease: "Even from down there at five-seven you spotted the royal pick. Impressive vision."
+          },
+          {
+            label: "hot pink",
+            icon: ICONS.bolt,
+            tease: "Bold pick. Hanging out with someone six feet tall is clearly elevating your aesthetic."
+          },
+          {
+            label: "midnight black",
+            icon: ICONS.moon,
+            tease: "Sleek and sharp. Another correct answer. Smarter every single day, and you are welcome."
+          }
+        ]
+      },
+      {
+        question: "Which type of perfume do you wear?",
+        options: [
+          {
+            label: "fresh and citrusy",
+            icon: ICONS.star,
+            tease: "Crisp and sharp, just like the high-altitude wisdom you absorb on our evening walks."
+          },
+          {
+            label: "sweet and floral",
+            icon: ICONS.crown,
+            tease: "Classic choice. My elite taste is definitely rubbing off on you faster than expected."
+          },
+          {
+            label: "warm and woody",
+            icon: ICONS.shield,
+            tease: "Top-tier pick. You are getting sharper by the day—those evening talks are paying dividends."
+          },
+          {
+            label: "bold and spicy",
+            icon: ICONS.flame,
+            tease: "Spicy pick. The knowledge transfer from the tall guy is going really well."
+          }
+        ]
+      },
+      {
+        question: "Pick your ideal evening.",
+        options: [
+          {
+            label: "a long walk with good talk",
+            icon: ICONS.star,
+            tease: "Obviously! Free daily masterclasses from six feet up are impossible to beat."
+          },
+          {
+            label: "a loud concert",
+            icon: ICONS.music,
+            tease: "Elite rock energy! Just stand near me so you still get the best view."
+          },
+          {
+            label: "a cosy movie night",
+            icon: ICONS.moon,
+            tease: "Solid strategy. Resting your brain after absorbing all my brilliance on our walks."
+          },
+          {
+            label: "a spontaneous drive",
+            icon: ICONS.wheel,
+            tease: "Fast lane mentality. Your decision-making is reaching peak F1 strategist levels lately."
+          }
+        ]
+      },
+      {
+        question: "How do you handle pressure?",
+        options: [
+          {
+            label: "stay calm and focused",
+            icon: ICONS.shield,
+            tease: "Ice in the veins. You have been taking notes from the tall guy, clearly."
+          },
+          {
+            label: "crack a joke",
+            icon: ICONS.bolt,
+            tease: "Quick wit! Proof that our daily walks are boosting your comedic timing too."
+          },
+          {
+            label: "plan everything twice",
+            icon: ICONS.crown,
+            tease: "Big-brain telemetry. Watching you get smarter every single evening is my favourite sport."
+          },
+          {
+            label: "go full send",
+            icon: ICONS.flame,
+            tease: "No hesitation! Five-foot-seven of pure fearless racing spirit right there."
+          }
+        ]
+      },
+      {
+        question: "What is your go-to music mood?",
+        options: [
+          {
+            label: "rock or metal",
+            icon: ICONS.bolt,
+            tease: "Absolute perfection. My elite playlist influence is officially 100% complete."
+          },
+          {
+            label: "pop",
+            icon: ICONS.star,
+            tease: "Catchy and energetic! Even your pop radar is getting sharper around me."
+          },
+          {
+            label: "lo-fi",
+            icon: ICONS.moon,
+            tease: "Smooth study beats for processing all the genius ideas I share on our walks."
+          },
+          {
+            label: "anything that slaps",
+            icon: ICONS.music,
+            tease: "Zero bad tracks allowed. Your taste level is climbing higher every single day."
+          }
+        ]
+      },
+      {
+        question: "Pick a superpower.",
+        options: [
+          {
+            label: "perfect timing",
+            icon: ICONS.wheel,
+            tease: "Spot on. Like hitting the apex every evening when we head out for our walk."
+          },
+          {
+            label: "fearless confidence",
+            icon: ICONS.flame,
+            tease: "Unstoppable energy. Even looking up at six feet, you never back down."
+          },
+          {
+            label: "unshakeable calm",
+            icon: ICONS.shield,
+            tease: "Championship mindset. The wisdom transfer is officially complete. Proud of you."
+          },
+          {
+            label: "lightning reflexes",
+            icon: ICONS.bolt,
+            tease: "Quickest on the grid! Smarter, sharper, and faster every single day."
+          }
+        ]
+      }
+    ];
+
+    /* =====================================================================
+       2. INITIALIZE PERSONALIZED VARIABLES IN DOM
+       ===================================================================== */
+    document.title = `Happy Birthday, ${FRIEND_NAME}! | F1 Personality Telemetry`;
+
+    document.querySelectorAll('.js-friend-name').forEach(el => {
+      el.textContent = FRIEND_NAME;
+    });
+    document.querySelectorAll('.js-my-name').forEach(el => {
+      el.textContent = MY_NAME;
+    });
+    document.getElementById('reveal-driver-headline').textContent = FAVORITE_DRIVER.toUpperCase();
+    document.getElementById('card-driver-name').textContent = FAVORITE_DRIVER;
+
+    document.getElementById('final-msg-1').textContent =
+      `Congratulations, you and ${MY_NAME} have the same F1 driver as their favourite.`;
+    document.getElementById('final-msg-2').textContent =
+      `You have the same great taste as ${MY_NAME}.`;
+    document.getElementById('final-msg-3').textContent =
+      `And congratulations on turning ${HER_AGE} this year, ${FRIEND_NAME}! Here is to an amazing year ahead.`;
+
+    // Populate Real Reveal Card & Glitch Text from REAL_REVEAL_DATA
+    document.getElementById('real-reveal-heading').textContent = REAL_REVEAL_DATA.heading;
+    document.getElementById('her-car-number').textContent = String(REAL_REVEAL_DATA.carNumber);
+    document.getElementById('her-team-name').textContent = REAL_REVEAL_DATA.teamName;
+    document.getElementById('her-licence-badge').textContent = REAL_REVEAL_DATA.superLicenceText;
+    document.getElementById('her-fav-driver-line').textContent = REAL_REVEAL_DATA.favDriverLine;
+    document.getElementById('screenshot-note-text').textContent = REAL_REVEAL_DATA.screenshotNote;
+    document.getElementById('real-reveal-bday-msg').textContent = REAL_REVEAL_DATA.birthdayMessage;
+    document.getElementById('glitch-line-1').textContent = `"${REAL_REVEAL_DATA.glitchLine1}"`;
+    document.getElementById('glitch-line-2').textContent = `"${REAL_REVEAL_DATA.glitchLine2}"`;
+    document.getElementById('voice-btn-label').textContent = REAL_REVEAL_DATA.voiceButtonLabel;
+    document.getElementById('voice-fallback-msg').textContent = REAL_REVEAL_DATA.voiceComingSoonText;
+    document.getElementById('final-closing-line').textContent = REAL_REVEAL_DATA.finalClosingLine;
+
+    const statsContainer = document.getElementById('her-stats-list');
+    statsContainer.innerHTML = '';
+    REAL_REVEAL_DATA.stats.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'her-stat-row';
+      row.innerHTML = `
+        <span class="stat-label">${item.label}</span>
+        <span class="stat-val">${item.value}</span>
+      `;
+      statsContainer.appendChild(row);
+    });
+
+    // Preload Photo & Handle Fallback Cleanly (Never pops in late or shows broken icon)
+    const herPhotoImg = document.getElementById('her-photo-img');
+    const herPhotoFallback = document.getElementById('her-photo-fallback');
+    herPhotoImg.alt = `Photo of ${FRIEND_NAME}`;
+    let isPhotoReady = false;
+    let photoReadyCallbacks = [];
+
+    function markPhotoSettled() {
+      if (isPhotoReady) return;
+      isPhotoReady = true;
+      photoReadyCallbacks.forEach(cb => cb());
+      photoReadyCallbacks = [];
+    }
+
+    herPhotoImg.addEventListener('load', () => {
+      herPhotoImg.classList.remove('hidden');
+      herPhotoFallback.classList.remove('visible');
+      markPhotoSettled();
+    });
+
+    herPhotoImg.addEventListener('error', () => {
+      herPhotoImg.classList.add('hidden');
+      herPhotoFallback.classList.add('visible');
+      markPhotoSettled();
+    });
+
+    herPhotoImg.src = PHOTO_SRC;
+
+    function whenPhotoReady(callback) {
+      if (isPhotoReady) {
+        callback();
+      } else {
+        photoReadyCallbacks.push(callback);
+      }
+    }
+
+    /* =====================================================================
+       3. AUDIO ENGINE: MP3 + WEB AUDIO API ROCK RIFF & SFX FALLBACK
+       ===================================================================== */
+    const bgAudio = document.getElementById('bg-audio');
+    const voiceAudio = document.getElementById('voice-audio');
+    bgAudio.src = BG_MUSIC_SRC;
+    voiceAudio.src = VOICE_MESSAGE_SRC;
+
+    const audioToggleBtn = document.getElementById('audio-toggle');
+    const iconSoundOn = document.getElementById('icon-sound-on');
+    const iconSoundOff = document.getElementById('icon-sound-off');
+
+    let audioCtx = null;
+    let isMuted = false;
+    let usingSynthFallback = false;
+    let synthInterval = null;
+    let masterGain = null;
+    let currentMusicMode = 'normal'; // 'normal' | 'warm' | 'ducked' | 'stopped'
+
+    function ensureAudioContext() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+          masterGain = audioCtx.createGain();
+          masterGain.gain.value = 0.38; // ~40% default volume
+          masterGain.connect(audioCtx.destination);
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    // Distortion curve for rock guitar power chords
+    function makeDistortionCurve(amount = 180) {
+      const k = typeof amount === 'number' ? amount : 50;
+      const nSamples = 22050;
+      const curve = new Float32Array(nSamples);
+      const deg = Math.PI / 180;
+      for (let i = 0; i < nSamples; ++i) {
+        const x = (i * 2) / nSamples - 1;
+        curve[i] = ((3 + k) * x * 20 * deg) / (Math.PI + k * Math.abs(x));
+      }
+      return curve;
+    }
+
+    function playDistortedPowerChord(rootFreq, duration = 0.22, warmGentle = false) {
+      if (!audioCtx || isMuted) return;
+      const now = audioCtx.currentTime;
+
+      const oscRoot = audioCtx.createOscillator();
+      const oscFifth = audioCtx.createOscillator();
+      oscRoot.type = warmGentle ? 'triangle' : 'sawtooth';
+      oscFifth.type = warmGentle ? 'sine' : 'sawtooth';
+      oscRoot.frequency.setValueAtTime(rootFreq, now);
+      oscFifth.frequency.setValueAtTime(rootFreq * 1.498, now); // Power chord fifth
+
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(warmGentle ? 950 : 1900, now);
+
+      const chordGain = audioCtx.createGain();
+      const peakGain = warmGentle ? 0.14 : 0.24;
+      chordGain.gain.setValueAtTime(peakGain, now);
+      chordGain.gain.exponentialRampToValueAtTime(0.008, now + duration);
+
+      if (warmGentle) {
+        oscRoot.connect(filter);
+        oscFifth.connect(filter);
+      } else {
+        const waveShaper = audioCtx.createWaveShaper();
+        waveShaper.curve = makeDistortionCurve(200);
+        waveShaper.oversample = '2x';
+        oscRoot.connect(waveShaper);
+        oscFifth.connect(waveShaper);
+        waveShaper.connect(filter);
+      }
+
+      filter.connect(chordGain);
+      chordGain.connect(masterGain);
+
+      oscRoot.start(now);
+      oscFifth.start(now);
+      oscRoot.stop(now + duration);
+      oscFifth.stop(now + duration);
+    }
+
+    function playRockKickAndSnare(step, warmGentle = false) {
+      if (!audioCtx || isMuted) return;
+      const now = audioCtx.currentTime;
+      const kickVol = warmGentle ? 0.22 : 0.45;
+
+      // Kick on 0, 3, 4
+      if (step % 4 === 0 || step === 3) {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.frequency.setValueAtTime(125, now);
+        osc.frequency.exponentialRampToValueAtTime(38, now + 0.12);
+        gain.gain.setValueAtTime(kickVol, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.14);
+        osc.connect(gain);
+        gain.connect(masterGain);
+        osc.start(now);
+        osc.stop(now + 0.15);
+      }
+
+      // Snare on 2 and 6
+      if (!warmGentle && step % 4 === 2) {
+        const bufferSize = audioCtx.sampleRate * 0.1;
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = Math.random() * 2 - 1;
+        }
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = buffer;
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'highpass';
+        filter.frequency.setValueAtTime(600, now);
+
+        const gain = audioCtx.createGain();
+        gain.gain.setValueAtTime(0.25, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(masterGain);
+        noise.start(now);
+      }
+    }
+
+    function stopSynthRockRiff() {
+      if (synthInterval) {
+        clearInterval(synthInterval);
+        synthInterval = null;
+      }
+    }
+
+    function startSynthRockRiff(warmGentle = false) {
+      stopSynthRockRiff();
+      usingSynthFallback = true;
+      const riffNotes = warmGentle
+        ? [130.81, 146.83, 164.81, 196.00, 164.81, 146.83, 130.81, 98.00]
+        : [82.41, 82.41, 98.00, 82.41, 110.00, 82.41, 130.81, 146.83];
+      let step = 0;
+      const tempoMs = warmGentle ? 280 : 215;
+      synthInterval = setInterval(() => {
+        if (!isMuted && currentMusicMode !== 'stopped' && currentMusicMode !== 'ducked') {
+          playDistortedPowerChord(riffNotes[step % riffNotes.length], warmGentle ? 0.26 : 0.2, warmGentle);
+          playRockKickAndSnare(step % 8, warmGentle);
+        }
+        step++;
+      }, tempoMs);
+    }
+
+    function startBackgroundMusic(warmMode = false) {
+      ensureAudioContext();
+      audioToggleBtn.classList.remove('hidden');
+      currentMusicMode = warmMode ? 'warm' : 'normal';
+      const targetVol = warmMode ? 0.22 : 0.4;
+      bgAudio.volume = targetVol;
+
+      if (usingSynthFallback) {
+        startSynthRockRiff(warmMode);
+        return;
+      }
+
+      const playPromise = bgAudio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          startSynthRockRiff(warmMode);
+        });
+      } else {
+        startSynthRockRiff(warmMode);
+      }
+    }
+
+    function cutBackgroundMusicAbruptly() {
+      currentMusicMode = 'stopped';
+      bgAudio.pause();
+      stopSynthRockRiff();
+    }
+
+    function duckBackgroundMusicForVoice(duck) {
+      if (duck) {
+        currentMusicMode = 'ducked';
+        bgAudio.volume = 0.05;
+      } else {
+        currentMusicMode = 'warm';
+        bgAudio.volume = 0.22;
+      }
+    }
+
+    // Unlock voiceAudio on first user tap for iOS Safari compatibility
+    function unlockVoiceAudioForIOS() {
+      voiceAudio.load();
+    }
+
+    bgAudio.addEventListener('error', () => {
+      if (!audioToggleBtn.classList.contains('hidden') && currentMusicMode !== 'stopped') {
+        startSynthRockRiff(currentMusicMode === 'warm');
+      }
+    });
+
+    // Sound Effect: Option Button Pop
+    function playPopSfx() {
+      ensureAudioContext();
+      if (!audioCtx || isMuted) return;
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(280, now);
+      osc.frequency.exponentialRampToValueAtTime(680, now + 0.09);
+      gain.gain.setValueAtTime(0.35, now);
+      gain.gain.exponentialRampToValueAtTime(0.005, now + 0.1);
+      osc.connect(gain);
+      gain.connect(masterGain);
+      osc.start(now);
+      osc.stop(now + 0.11);
+    }
+
+    // Sound Effect: F1 Starting Light Beep
+    function playGantryBeep(freq = 880, duration = 0.12) {
+      ensureAudioContext();
+      if (!audioCtx || isMuted) return;
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(freq, now);
+      gain.gain.setValueAtTime(0.18, now);
+      gain.gain.exponentialRampToValueAtTime(0.005, now + duration);
+      osc.connect(gain);
+      gain.connect(masterGain);
+      osc.start(now);
+      osc.stop(now + duration);
+    }
+
+    // Sound Effect: Reveal Fanfare Chord
+    function playRevealFanfare() {
+      ensureAudioContext();
+      if (!audioCtx || isMuted) return;
+      const notes = [261.63, 329.63, 392.00, 523.25];
+      notes.forEach((freq, idx) => {
+        setTimeout(() => {
+          playDistortedPowerChord(freq, 0.55);
+        }, idx * 90);
+      });
+    }
+
+    // Sound Effect: Radio Static / Glitch Crackle via Web Audio API
+    function playRadioStaticCrackle(duration = 0.75) {
+      ensureAudioContext();
+      if (!audioCtx || isMuted) return;
+      const now = audioCtx.currentTime;
+      const bufferSize = Math.floor(audioCtx.sampleRate * duration);
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        // Intermittent crackle bursts
+        const burst = Math.sin(i * 0.015) > 0.1 ? 1 : 0.25;
+        data[i] = (Math.random() * 2 - 1) * burst;
+      }
+
+      const noise = audioCtx.createBufferSource();
+      noise.buffer = buffer;
+
+      const bandpass = audioCtx.createBiquadFilter();
+      bandpass.type = 'bandpass';
+      bandpass.frequency.setValueAtTime(1400, now);
+      bandpass.Q.setValueAtTime(1.8, now);
+
+      const gain = audioCtx.createGain();
+      gain.gain.setValueAtTime(0.45, now);
+      gain.gain.exponentialRampToValueAtTime(0.02, now + duration);
+
+      noise.connect(bandpass);
+      bandpass.connect(gain);
+      gain.connect(masterGain);
+      noise.start(now);
+    }
+
+    audioToggleBtn.addEventListener('click', () => {
+      isMuted = !isMuted;
+      bgAudio.muted = isMuted;
+      voiceAudio.muted = isMuted;
+      if (masterGain && audioCtx) {
+        masterGain.gain.setValueAtTime(isMuted ? 0 : 0.38, audioCtx.currentTime);
+      }
+      iconSoundOn.style.display = isMuted ? 'none' : 'block';
+      iconSoundOff.style.display = isMuted ? 'block' : 'none';
+      audioToggleBtn.setAttribute('aria-label', isMuted ? 'Unmute background music' : 'Mute background music');
+    });
+
+    /* =====================================================================
+       4. CANVAS PARTY POPPER & SPARK PARTICLE ENGINE
+       ===================================================================== */
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let animFrameId = null;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const PALETTE = ['#e11d48', '#9333ea', '#ff007f', '#ffffff', '#fbbf24'];
+
+    function fireCornerPartyPoppers(intensity = 1) {
+      if (prefersReducedMotion) return;
+      const isMobile = window.innerWidth < 600;
+      const baseCount = isMobile ? 42 : 75;
+      const countPerCorner = Math.floor(baseCount * intensity);
+
+      const corners = [
+        { x: 0, y: canvas.height, angleMin: -82, angleMax: -22 },
+        { x: canvas.width, y: canvas.height, angleMin: -158, angleMax: -98 }
+      ];
+
+      corners.forEach(corner => {
+        for (let i = 0; i < countPerCorner; i++) {
+          const angleDeg = corner.angleMin + Math.random() * (corner.angleMax - corner.angleMin);
+          const angleRad = (angleDeg * Math.PI) / 180;
+          const speed = 9 + Math.random() * 15;
+          const shapeTypes = ['rect', 'streamer', 'sparkle'];
+          const shape = shapeTypes[Math.floor(Math.random() * shapeTypes.length)];
+
+          particles.push({
+            x: corner.x,
+            y: corner.y,
+            vx: Math.cos(angleRad) * speed,
+            vy: Math.sin(angleRad) * speed,
+            gravity: 0.28 + Math.random() * 0.12,
+            drag: 0.985,
+            color: PALETTE[Math.floor(Math.random() * PALETTE.length)],
+            size: shape === 'streamer' ? 14 : 6 + Math.random() * 5,
+            rotation: Math.random() * Math.PI * 2,
+            rotationSpeed: (Math.random() - 0.5) * 0.22,
+            alpha: 1,
+            decay: 0.008 + Math.random() * 0.008,
+            shape
+          });
+        }
+      });
+
+      if (!animFrameId) {
+        updateParticles();
+      }
+    }
+
+    function fireButtonSparks(clientX, clientY) {
+      if (prefersReducedMotion) return;
+      const count = window.innerWidth < 600 ? 18 : 28;
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 2.5 + Math.random() * 6.5;
+        particles.push({
+          x: clientX,
+          y: clientY,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 1.5,
+          gravity: 0.22,
+          drag: 0.96,
+          color: PALETTE[Math.floor(Math.random() * PALETTE.length)],
+          size: 4 + Math.random() * 4,
+          rotation: Math.random() * Math.PI * 2,
+          rotationSpeed: (Math.random() - 0.5) * 0.25,
+          alpha: 1,
+          decay: 0.022 + Math.random() * 0.015,
+          shape: i % 2 === 0 ? 'sparkle' : 'rect'
+        });
+      }
+      if (!animFrameId) {
+        updateParticles();
+      }
+    }
+
+    function updateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.vx *= p.drag;
+        p.vy *= p.drag;
+        p.vy += p.gravity;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rotation += p.rotationSpeed;
+        p.alpha -= p.decay;
+
+        if (p.alpha <= 0 || p.y > canvas.height + 40) {
+          particles.splice(i, 1);
+          continue;
+        }
+
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, p.alpha);
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation);
+        ctx.fillStyle = p.color;
+
+        if (p.shape === 'rect') {
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.65);
+        } else if (p.shape === 'streamer') {
+          ctx.fillRect(-p.size / 2, -2, p.size * 1.4, 4);
+        } else {
+          // 4-point sparkle star
+          ctx.beginPath();
+          const r = p.size * 0.7;
+          ctx.moveTo(0, -r);
+          ctx.quadraticCurveTo(0, 0, r, 0);
+          ctx.quadraticCurveTo(0, 0, 0, r);
+          ctx.quadraticCurveTo(0, 0, -r, 0);
+          ctx.quadraticCurveTo(0, 0, 0, -r);
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+
+      if (particles.length > 0) {
+        animFrameId = requestAnimationFrame(updateParticles);
+      } else {
+        animFrameId = null;
+      }
+    }
+
+    /* =====================================================================
+       5. STATE MACHINE & USER FLOW CONTROLLER
+       ===================================================================== */
+    const screens = {
+      intro: document.getElementById('screen-intro'),
+      opening: document.getElementById('screen-opening'),
+      quiz: document.getElementById('screen-quiz'),
+      suspense: document.getElementById('screen-suspense'),
+      reveal: document.getElementById('screen-reveal'),
+      glitch: document.getElementById('screen-glitch'),
+      realReveal: document.getElementById('screen-real-reveal')
+    };
+
+    let appState = 'INTRO'; // INTRO | OPENING | QUIZ | SUSPENSE | FAKE_REVEAL | GLITCH | REAL_REVEAL
+    let currentQuestionIndex = 0;
+    let isTransitionLocked = false;
+    let activeTimers = [];
+
+    function scheduleTimer(fn, delay) {
+      const id = setTimeout(fn, delay);
+      activeTimers.push(id);
+      return id;
+    }
+
+    function clearAllTimers() {
+      activeTimers.forEach(id => clearTimeout(id));
+      activeTimers = [];
+    }
+
+    function showScreen(screenKey, nextState) {
+      Object.values(screens).forEach(s => s.classList.remove('active'));
+      screens[screenKey].classList.add('active');
+      if (nextState) appState = nextState;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Step 1 -> Step 2: Tap to Start Celebration
+    document.getElementById('btn-unlock').addEventListener('click', () => {
+      if (isTransitionLocked || appState !== 'INTRO') return;
+      isTransitionLocked = true;
+      playPopSfx();
+      unlockVoiceAudioForIOS();
+      startBackgroundMusic(false);
+      showScreen('opening', 'OPENING');
+      fireCornerPartyPoppers(1);
+      scheduleTimer(() => { isTransitionLocked = false; }, 450);
+    });
+
+    // Step 2 -> Step 3: Start the Race (Quiz)
+    document.getElementById('btn-start-race').addEventListener('click', (e) => {
+      if (isTransitionLocked || appState !== 'OPENING') return;
+      isTransitionLocked = true;
+      playPopSfx();
+      const rect = e.currentTarget.getBoundingClientRect();
+      fireButtonSparks(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      currentQuestionIndex = 0;
+      renderQuestion(currentQuestionIndex);
+      showScreen('quiz', 'QUIZ');
+      scheduleTimer(() => { isTransitionLocked = false; }, 400);
+    });
+
+    // Update 5 Red Racing Lights Progress Indicator
+    function updateGantryLights(questionIdx) {
+      const pods = document.querySelectorAll('#gantry-lights .light-pod');
+      const gantry = document.getElementById('gantry-lights');
+      const sectorLabel = document.getElementById('sector-label');
+
+      sectorLabel.textContent = `Sector ${questionIdx + 1} of ${QUIZ_QUESTIONS.length}`;
+      gantry.setAttribute('aria-valuenow', String(questionIdx + 1));
+
+      pods.forEach((pod, idx) => {
+        pod.classList.remove('lit', 'final-lap');
+        if (questionIdx < 5) {
+          if (idx <= questionIdx) pod.classList.add('lit');
+        } else {
+          pod.classList.add('lit', 'final-lap');
+        }
+      });
+    }
+
+    function renderQuestion(index) {
+      const qData = QUIZ_QUESTIONS[index];
+      updateGantryLights(index);
+
+      const questionHeading = document.getElementById('question-heading');
+      const optionsContainer = document.getElementById('options-container');
+      const teamRadio = document.getElementById('team-radio');
+
+      teamRadio.classList.remove('visible');
+      questionHeading.textContent = qData.question;
+      optionsContainer.innerHTML = '';
+
+      qData.options.forEach((opt) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'option-btn';
+        btn.innerHTML = `
+          <span class="option-icon" aria-hidden="true">${opt.icon}</span>
+          <span class="option-text">${opt.label}</span>
+        `;
+
+        btn.addEventListener('click', (ev) => handleOptionSelect(ev, btn, opt.tease));
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function handleOptionSelect(ev, chosenBtn, teaseMessage) {
+      if (isTransitionLocked || appState !== 'QUIZ') return;
+      isTransitionLocked = true;
+
+      playPopSfx();
+
+      // Ripple visual inside button
+      const rect = chosenBtn.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple';
+      const size = Math.max(rect.width, rect.height);
+      ripple.style.width = ripple.style.height = `${size}px`;
+      const clickX = ev.clientX ? ev.clientX - rect.left : rect.width / 2;
+      const clickY = ev.clientY ? ev.clientY - rect.top : rect.height / 2;
+      ripple.style.left = `${clickX - size / 2}px`;
+      ripple.style.top = `${clickY - size / 2}px`;
+      chosenBtn.appendChild(ripple);
+
+      // Spark burst from chosen button
+      const sparkX = ev.clientX || (rect.left + rect.width / 2);
+      const sparkY = ev.clientY || (rect.top + rect.height / 2);
+      fireButtonSparks(sparkX, sparkY);
+
+      // Highlight chosen option & fade others
+      const allBtns = document.querySelectorAll('#options-container .option-btn');
+      allBtns.forEach(b => {
+        if (b === chosenBtn) {
+          b.classList.add('selected');
+        } else {
+          b.classList.add('dimmed');
+        }
+      });
+
+      // Show Pit Wall Team Radio Tease
+      const teamRadio = document.getElementById('team-radio');
+      const radioText = document.getElementById('radio-text');
+      const teaseProgressFill = document.getElementById('tease-progress-fill');
+      radioText.textContent = `"${teaseMessage}"`;
+      teamRadio.classList.add('visible');
+
+      // Animate the thin progress bar draining over TEASE_DURATION_MS
+      if (teaseProgressFill) {
+        teaseProgressFill.style.transition = 'none';
+        teaseProgressFill.style.width = '100%';
+        void teaseProgressFill.offsetWidth; // Force reflow so transition always restarts cleanly
+        teaseProgressFill.style.transition = `width ${TEASE_DURATION_MS}ms linear`;
+        teaseProgressFill.style.width = '0%';
+      }
+
+      // Hold for TEASE_DURATION_MS (7 seconds) so she can read the personal tease, then advance
+      scheduleTimer(() => {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < QUIZ_QUESTIONS.length) {
+          renderQuestion(currentQuestionIndex);
+          isTransitionLocked = false;
+        } else {
+          runSuspenseSequence();
+        }
+      }, TEASE_DURATION_MS);
+    }
+
+    // Step 5: 4-Second F1 Telemetry Suspense & 5-Lights-Out Trigger
+    function runSuspenseSequence() {
+      showScreen('suspense', 'SUSPENSE');
+
+      const statusEl = document.getElementById('suspense-heading');
+      const rpmValueEl = document.getElementById('rpm-value');
+      const revArc = document.getElementById('rev-arc');
+      const revNeedle = document.getElementById('rev-needle');
+      const suspensePods = document.querySelectorAll('#suspense-gantry .light-pod');
+
+      suspensePods.forEach(p => p.classList.remove('lit'));
+      statusEl.textContent = "Analysing your personality...";
+
+      const totalDuration = 4000;
+      const startTime = performance.now();
+
+      function animateTachometer(now) {
+        if (appState !== 'SUSPENSE') return;
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / totalDuration, 1);
+
+        const jitter = Math.sin(elapsed * 0.035) * 0.04;
+        const clamped = Math.max(0, Math.min(1, progress + jitter));
+        const rpm = Math.floor(clamped * 15000);
+        rpmValueEl.textContent = `${rpm.toLocaleString()} RPM`;
+
+        revArc.style.strokeDashoffset = String(252 - clamped * 252);
+        const angle = -90 + clamped * 180;
+        revNeedle.setAttribute('transform', `rotate(${angle} 100 105)`);
+
+        if (progress < 1) {
+          requestAnimationFrame(animateTachometer);
+        }
+      }
+      requestAnimationFrame(animateTachometer);
+
+      suspensePods.forEach((pod, idx) => {
+        scheduleTimer(() => {
+          pod.classList.add('lit');
+          playGantryBeep(660, 0.11);
+        }, (idx + 1) * 650);
+      });
+
+      scheduleTimer(() => {
+        statusEl.textContent = "Checking the telemetry...";
+      }, 1350);
+
+      scheduleTimer(() => {
+        statusEl.textContent = "Comparing with the grid...";
+      }, 2700);
+
+      // 5 LIGHTS OUT -> FAKE-OUT KIMI ANTONELLI REVEAL!
+      scheduleTimer(() => {
+        suspensePods.forEach(p => p.classList.remove('lit'));
+        statusEl.textContent = "LIGHTS OUT!";
+        playGantryBeep(1320, 0.25);
+
+        scheduleTimer(() => {
+          runFakeOutReveal();
+        }, 350);
+      }, 4000);
+    }
+
+    // Step 6: Hold Kimi Antonelli Fake-Out for ~5 Seconds, Then Trigger Glitch
+    function runFakeOutReveal() {
+      showScreen('reveal', 'FAKE_REVEAL');
+      playRevealFanfare();
+      fireCornerPartyPoppers(0.75);
+
+      // Hold for 5 seconds so it feels like the genuine ending
+      scheduleTimer(() => {
+        runGlitchTransition();
+      }, 5000);
+    }
+
+    // Step 7: Sudden Glitch Interruption & Radio Static
+    function runGlitchTransition() {
+      const scanlines = document.getElementById('glitch-scanlines');
+      const glitchCard = document.getElementById('glitch-card');
+      const glitchLine2 = document.getElementById('glitch-line-2');
+      const flashEl = document.getElementById('lights-out-flash');
+
+      // Cut background music abruptly and fire radio static crackle
+      cutBackgroundMusicAbruptly();
+      playRadioStaticCrackle(0.8);
+
+      if (!prefersReducedMotion) {
+        scanlines.classList.add('active');
+        screens.reveal.classList.add('glitch-active');
+      }
+
+      // Brief shake on fake reveal, then switch to glitch card
+      scheduleTimer(() => {
+        screens.reveal.classList.remove('glitch-active');
+        glitchLine2.style.display = 'none';
+        showScreen('glitch', 'GLITCH');
+        if (!prefersReducedMotion) {
+          glitchCard.classList.add('glitch-active');
+        }
+      }, 380);
+
+      // Show second radio line: "Incoming data. Stand by."
+      scheduleTimer(() => {
+        playRadioStaticCrackle(0.45);
+        glitchLine2.style.display = 'block';
+      }, 1350);
+
+      // Pause ~2.6 seconds total, then quick lights-out flash into Real Reveal
+      scheduleTimer(() => {
+        scanlines.classList.remove('active');
+        glitchCard.classList.remove('glitch-active');
+        playGantryBeep(1480, 0.22);
+
+        if (!prefersReducedMotion) {
+          flashEl.classList.remove('fire');
+          void flashEl.offsetWidth;
+          flashEl.classList.add('fire');
+        }
+
+        scheduleTimer(() => {
+          runRealReveal();
+        }, 220);
+      }, 3100);
+    }
+
+    // Step 8: The Real Reveal (Trijieta's Custom #19 Card + Warm Music + Bigger Poppers)
+    function runRealReveal() {
+      const tradingCard = document.getElementById('her-trading-card');
+      tradingCard.classList.remove('animate-in', 'holo-sweep');
+
+      showScreen('realReveal', 'REAL_REVEAL');
+      isTransitionLocked = false;
+
+      // Bring music back softer and warmer than before
+      startBackgroundMusic(true);
+      playRevealFanfare();
+
+      // Bigger party popper burst than the first one
+      fireCornerPartyPoppers(1.45);
+
+      // Wait until trijieta.jpg has either loaded or fallen back to helmet SVG before starting entrance
+      whenPhotoReady(() => {
+        tradingCard.classList.add('animate-in');
+        if (!prefersReducedMotion) {
+          scheduleTimer(() => {
+            tradingCard.classList.add('holo-sweep');
+          }, 1450);
+        }
+      });
+    }
+
+    /* =====================================================================
+       6. VOICE MESSAGE PLAYER ("Incoming team radio from Aman")
+       ===================================================================== */
+    const btnPlayVoice = document.getElementById('btn-play-voice');
+    const voiceControls = document.getElementById('voice-controls');
+    const btnPauseVoice = document.getElementById('btn-pause-voice');
+    const iconVoicePause = document.getElementById('icon-voice-pause');
+    const iconVoiceResume = document.getElementById('icon-voice-resume');
+    const voicePauseLabel = document.getElementById('voice-pause-label');
+    const voiceSignalBars = document.getElementById('voice-signal-bars');
+    const voiceProgressFill = document.getElementById('voice-progress-fill');
+    const voiceFallbackMsg = document.getElementById('voice-fallback-msg');
+    const finalClosingLine = document.getElementById('final-closing-line');
+
+    let voiceFailedToLoad = false;
+
+    voiceAudio.addEventListener('error', () => {
+      voiceFailedToLoad = true;
+    });
+
+    function resetVoicePlayerUI() {
+      voiceAudio.pause();
+      try { voiceAudio.currentTime = 0; } catch (e) {}
+      voiceControls.classList.remove('active');
+      voiceSignalBars.classList.remove('playing');
+      voiceProgressFill.style.width = '0%';
+      voiceFallbackMsg.classList.remove('visible');
+      finalClosingLine.classList.remove('visible');
+      btnPlayVoice.style.display = 'flex';
+    }
+
+    btnPlayVoice.addEventListener('click', () => {
+      playPopSfx();
+      if (voiceFailedToLoad) {
+        voiceFallbackMsg.classList.add('visible');
+        finalClosingLine.classList.add('visible');
+        return;
+      }
+
+      duckBackgroundMusicForVoice(true);
+      const playPromise = voiceAudio.play();
+
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          btnPlayVoice.style.display = 'none';
+          voiceFallbackMsg.classList.remove('visible');
+          voiceControls.classList.add('active');
+          voiceSignalBars.classList.add('playing');
+          iconVoicePause.style.display = 'block';
+          iconVoiceResume.style.display = 'none';
+          voicePauseLabel.textContent = 'Pause';
+        }).catch(() => {
+          voiceFailedToLoad = true;
+          duckBackgroundMusicForVoice(false);
+          voiceFallbackMsg.classList.add('visible');
+          finalClosingLine.classList.add('visible');
+        });
+      }
+    });
+
+    btnPauseVoice.addEventListener('click', () => {
+      playPopSfx();
+      if (voiceAudio.paused) {
+        duckBackgroundMusicForVoice(true);
+        voiceAudio.play().catch(() => {});
+        voiceSignalBars.classList.add('playing');
+        iconVoicePause.style.display = 'block';
+        iconVoiceResume.style.display = 'none';
+        voicePauseLabel.textContent = 'Pause';
+      } else {
+        voiceAudio.pause();
+        duckBackgroundMusicForVoice(false);
+        voiceSignalBars.classList.remove('playing');
+        iconVoicePause.style.display = 'none';
+        iconVoiceResume.style.display = 'block';
+        voicePauseLabel.textContent = 'Resume';
+      }
+    });
+
+    voiceAudio.addEventListener('timeupdate', () => {
+      if (voiceAudio.duration && isFinite(voiceAudio.duration)) {
+        const pct = Math.min(100, (voiceAudio.currentTime / voiceAudio.duration) * 100);
+        voiceProgressFill.style.width = `${pct}%`;
+      }
+    });
+
+    voiceAudio.addEventListener('ended', () => {
+      voiceSignalBars.classList.remove('playing');
+      voiceProgressFill.style.width = '100%';
+      iconVoicePause.style.display = 'none';
+      iconVoiceResume.style.display = 'block';
+      voicePauseLabel.textContent = 'Replay Radio';
+      duckBackgroundMusicForVoice(false);
+      finalClosingLine.classList.add('visible');
+    });
+
+    /* =====================================================================
+       7. REPLAY BUTTON (Cleans up timers & audio and restarts experience)
+       ===================================================================== */
+    document.getElementById('btn-replay').addEventListener('click', (e) => {
+      if (isTransitionLocked) return;
+      isTransitionLocked = true;
+      clearAllTimers();
+      resetVoicePlayerUI();
+
+      document.getElementById('glitch-scanlines').classList.remove('active');
+      document.getElementById('her-trading-card').classList.remove('animate-in', 'holo-sweep');
+
+      playPopSfx();
+      startBackgroundMusic(false);
+
+      const rect = e.currentTarget.getBoundingClientRect();
+      fireButtonSparks(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+      currentQuestionIndex = 0;
+      renderQuestion(0);
+      showScreen('quiz', 'QUIZ');
+      scheduleTimer(() => { isTransitionLocked = false; }, 400);
+    });
+  </script>
+</body>
+</html>
